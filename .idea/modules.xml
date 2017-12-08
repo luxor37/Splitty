@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Splity.iml" filepath="$PROJECT_DIR$/Splity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Splitty.iml" filepath="$PROJECT_DIR$/Splitty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/Splitty-app.iml" filepath="$PROJECT_DIR$/app/Splitty-app.iml" />
+      <module fileurl="file://D:\Documents\School\Semester 5\Mobile Development\Splitty\Splity.iml" filepath="D:\Documents\School\Semester 5\Mobile Development\Splitty\Splity.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
