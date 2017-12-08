@@ -1,11 +1,7 @@
 package com.example.splitty.splitty;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -20,14 +16,12 @@ import android.widget.Toast;
 
 import com.example.splitty.splitty.Classes.Contact;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class AddFriendActivity extends AppCompatActivity {
-    private CharSequence currentSearch;
     private TableLayout resultView;
     private DatabaseManager db;
-    private ArrayList<Contact> friendList;
+    private ArrayList<Integer> friendList;
     private Intent eventIntent;
 
     @Override
@@ -66,22 +60,21 @@ public class AddFriendActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 search(s);
-                currentSearch = s;
             }
         });
 
-        if(getIntent().getSerializableExtra("friendList") !=null)
-            friendList = (ArrayList<Contact>)getIntent().getSerializableExtra("friendList");
+        if (getIntent().getIntegerArrayListExtra("friendList") != null)
+            friendList = getIntent().getIntegerArrayListExtra("friendList");
     }
 
-    public void search(CharSequence s){
+    public void search(CharSequence s) {
         resultView.removeAllViews();
         final ArrayList<Contact> contacts = db.selectContactByName(s.toString());
         for (int i = 0; i < contacts.size(); i++) {
             final TableRow row = new TableRow(this);
             TextView info = new TextView(this);
             Button addBtn = new Button(this);
-            info.setText(contacts.get(i).getFirstName()+" "+contacts.get(i).getLastName()+" "+
+            info.setText(contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName() + " " +
                     contacts.get(i).getEmail());
             final int j = i;
             addBtn.setOnClickListener(new View.OnClickListener() {
@@ -95,22 +88,19 @@ public class AddFriendActivity extends AppCompatActivity {
         }
     }
 
-    public void addFriend(int id){
-        if(friendList!=null) {
-            if (!(friendList.contains(db.selectContactById(id)))) {
-                friendList.add((db.selectContactById(id)));
+    public void addFriend(int id) {
+        if (friendList != null) {
+            if (!(friendList.contains(id))) {
+                friendList.add(id);
             } else {
                 Toast toast = Toast.makeText(this, "Friend already added", Toast.LENGTH_SHORT);
                 toast.show();
             }
-        }
-        else {
+        } else {
             friendList = new ArrayList<>();
-            friendList.add((db.selectContactById(id)));
+            friendList.add(id);
         }
-        Bundle args = new Bundle();
-        args.putSerializable("friendList",(Serializable)friendList);
-        eventIntent.putExtra("bundle", args);
+        eventIntent.putIntegerArrayListExtra("friendList", friendList);
         startActivity(eventIntent);
     }
 }
