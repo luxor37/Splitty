@@ -41,7 +41,8 @@
         android:layout_below="@+id/desc"
         android:layout_marginStart="17dp"
         android:layout_marginTop="17dp"
-        android:text="@string/invite" />
+        android:text="@string/invite"
+        android:onClick="addFriend"/>
 
     <Button
         android:id="@+id/createBtn"
@@ -71,7 +72,8 @@
         android:clipToPadding="true"
         android:layout_margin = "20dp">
 
-        <GridLayout
+        <TableLayout
+            android:id="@+id/resultView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
