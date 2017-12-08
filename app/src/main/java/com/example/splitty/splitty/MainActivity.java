@@ -5,19 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toolbar;
+import android.view.View;
+import android.support.v7.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
-    private Intent addEventIntent = new Intent(this, AddEventActivity.class);
+    private Intent addEventIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar tb = (Toolbar) findViewById(R.id.toolbar);
-        setActionBar(tb);
+        Toolbar tb = findViewById(R.id.toolbar);
+        setSupportActionBar(tb);
 
-
+        addEventIntent = new Intent(this, AddEventActivity.class);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addEvent(){
+    public void addEvent(View v){
         startActivity(addEventIntent);
     }
 }
