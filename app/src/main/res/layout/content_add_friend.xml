@@ -41,7 +41,7 @@
         android:layout_margin="20dp">
 
         <TableLayout
-            android:id="@+id/resultTable"
+            android:id="@+id/resultView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

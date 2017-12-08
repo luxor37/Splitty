@@ -1,5 +1,6 @@
 package com.example.splitty.splitty;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,16 +16,19 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.splitty.splitty.Classes.Contact;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class AddFriendActivity extends AppCompatActivity {
     private CharSequence currentSearch;
     private TableLayout resultView;
     private DatabaseManager db;
-    private ArrayList<Contact> selectedContacts;
+    private ArrayList<Contact> friendList;
+    private Intent eventIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +38,20 @@ public class AddFriendActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         db = new DatabaseManager(this);
-        resultView = findViewById(R.id.resultTable);
-        selectedContacts = new ArrayList<>();
+        resultView = findViewById(R.id.resultView);
+        eventIntent = new Intent(this, AddEventActivity.class);
+
+        //Hard coded contacts=========================
+        Contact temp =
+                new Contact(1, "Remi", "Martel", "remi@martel.com");
+        db.insertContact(temp);
+        Contact temp1 =
+                new Contact(2, "William", "Fournier", "william@fournier.com");
+        db.insertContact(temp1);
+        Contact temp2 =
+                new Contact(3, "Tristan", "Gosselin", "tristan@gosselin.com");
+        db.insertContact(temp2);
+        //Hard coded contacts=========================
 
         final EditText myTextBox = findViewById(R.id.search);
         myTextBox.addTextChangedListener(new TextWatcher() {
@@ -53,6 +69,9 @@ public class AddFriendActivity extends AppCompatActivity {
                 currentSearch = s;
             }
         });
+
+        if(getIntent().getSerializableExtra("friendList") !=null)
+            friendList = (ArrayList<Contact>)getIntent().getSerializableExtra("friendList");
     }
 
     public void search(CharSequence s){
@@ -67,8 +86,7 @@ public class AddFriendActivity extends AppCompatActivity {
             final int j = i;
             addBtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    addFriend(contacts.get(j).getId(), row);
-                    row.setBackgroundColor(Color.GREEN);
+                    addFriend(contacts.get(j).getId());
                 }
             });
             row.addView(info);
@@ -77,13 +95,22 @@ public class AddFriendActivity extends AppCompatActivity {
         }
     }
 
-    public void addFriend(int id, TableRow row){
-        if(!(selectedContacts.contains(db.selectContactById(id)))){
-            selectedContacts.add((db.selectContactById(id)));
+    public void addFriend(int id){
+        if(friendList!=null) {
+            if (!(friendList.contains(db.selectContactById(id)))) {
+                friendList.add((db.selectContactById(id)));
+            } else {
+                Toast toast = Toast.makeText(this, "Friend already added", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
-        else{
-            selectedContacts.remove(db.selectContactById(id));
-            row.setBackgroundColor(Color.TRANSPARENT);
+        else {
+            friendList = new ArrayList<>();
+            friendList.add((db.selectContactById(id)));
         }
+        Bundle args = new Bundle();
+        args.putSerializable("friendList",(Serializable)friendList);
+        eventIntent.putExtra("bundle", args);
+        startActivity(eventIntent);
     }
 }

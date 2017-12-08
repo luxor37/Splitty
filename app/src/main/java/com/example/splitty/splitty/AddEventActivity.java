@@ -4,6 +4,7 @@ package com.example.splitty.splitty;
         import android.os.Bundle;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.Toolbar;
+        import android.util.Log;
         import android.view.View;
         import android.widget.Button;
         import android.widget.TableLayout;
@@ -32,30 +33,36 @@ public class AddEventActivity extends AppCompatActivity implements Serializable{
         friendIntent = new Intent(this, AddFriendActivity.class);
         resultView = (TableLayout)findViewById(R.id.resultView);
 
-        if(getIntent().getSerializableExtra("friendList") !=null)
-            friendList = (ArrayList<Contact>)getIntent().getSerializableExtra("friendList");
+        if(getIntent().getSerializableExtra("friendList") !=null) {
+            Intent temp = getIntent();
+            Bundle args = temp.getBundleExtra("BUNDLE");
+            friendList = (ArrayList<Contact>) args.getSerializable("friendList");
+        }
         populateScroll();
     }
 
     public void createEvent (View v){
-        if(!(friendList==null)) {
-            mainIntent.putExtra("friendList", friendList);
+        if(friendList!=null) {
+            Bundle args = new Bundle();
+            args.putSerializable("friendList",(Serializable)friendList);
+            mainIntent.putExtra("bundle", args);
             startActivity(mainIntent);
         }
     }
 
     public void populateScroll(){
-        if(!(friendList==null)){
+        if(friendList!=null){
+
             for (int i = 0;i<friendList.size();i++) {
-                Contact friend = friendList.get(i);
+                Log.d("DDDDDDDEEEEEEEBBBUUUUUUGGGGG",friendList.size()+"");
                 TableRow row = new TableRow(this);
                 TextView info = new TextView(this);
                 Button rmvBtn = new Button(this);
-                info.setText(friend.getFirstName()+" "+friend.getLastName());
-                final Contact temp = friend;
+                info.setText(friendList.get(i).getFirstName()+" "+friendList.get(i).getLastName());
+                final int temp = i;
                 rmvBtn.setOnClickListener(new View.OnClickListener(){
                     public void onClick(View v){
-                        removeFriend(temp);
+                        removeFriend(friendList.get(temp).getId());
                     }
                 });
                 rmvBtn.setText("@string/delete");
@@ -73,14 +80,16 @@ public class AddEventActivity extends AppCompatActivity implements Serializable{
         }
     }
 
-    public void removeFriend(Contact toRemove){
+    public void removeFriend(int id){
 
     }
 
     public void addFriend (View v){
 
-        if(!(friendList==null)){
-            friendIntent.putExtra("friendList", friendList);
+        if(friendList!=null){
+            Bundle args = new Bundle();
+            args.putSerializable("friendList",(Serializable)friendList);
+            friendIntent.putExtra("bundle", args);
         }
         startActivity(friendIntent);
     }
