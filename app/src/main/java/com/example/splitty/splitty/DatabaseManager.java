@@ -18,7 +18,7 @@ import java.util.Date;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "splittyDB";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
     public DatabaseManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,7 +30,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 "C_FIRST text, C_LAST text, C_EMAIL text)";
         String createEvent = "create table EVENT (E_ID number primary key, E_NAME text)";
         String createPurchase = "create table PURCHASE (P_ID integer primary key autoincrement, " +
-                "P_DESC text, P_BUYER_ID number, P_COST number, P_DATE date)";
+                "P_DESC text, P_BUYER_ID integer, P_COST number)";
         String createContactGroup = "create table CONTACT_GROUP (C_GROUP_ID integer primary key autoincrement," +
                 " C_ID number, E_ID)";
         String createPurchaseGroup = "create table PURCHASE_GROUP (P_GROUP_ID integer primary key autoincrement," +
@@ -178,6 +178,22 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return contacts;
     }
 
+    public int getContactCountInEvent(int eventId){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String sqlQuery = "select COUNT(*) from CONTACT_GROUP where E_ID = " +eventId;
+
+        Cursor curs = db.rawQuery(sqlQuery, null);
+        int count = 0;
+
+        while (curs.moveToNext()) {
+            count = curs.getInt(0);
+        }
+
+        curs.close();
+        return count;
+    }
+
     public Event selectEventById(int eventId) {
         SQLiteDatabase db = this.getWritableDatabase();
         Event e = null;
@@ -245,7 +261,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public ArrayList<Purchase> selectPurchasesByEvent(int eventId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Purchase> purchases = new ArrayList<>();
-        String sqlQuery = "select p.P_DESC, p.P_BUYER_ID, p.P_COST from PURCHASE p, PURCHASE_GROUP p_g where p_g.P_ID = p.P_ID AND p_g.E_ID = " + eventId;
+        String sqlQuery = "select p.P_ID, p.P_DESC, p.P_BUYER_ID, p.P_COST from PURCHASE p, PURCHASE_GROUP p_g where p_g.P_ID = p.P_ID AND p_g.E_ID = " + eventId;
         Cursor curs = db.rawQuery(sqlQuery, null);
         while (curs.moveToNext()) {
             int id = curs.getInt(0);
@@ -261,7 +277,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ArrayList<Purchase> purchases = new ArrayList<>();
-        String sqlQuery = "select * from EVENT";
+        String sqlQuery = "select * from PURCHASE";
 
         Cursor curs = db.rawQuery(sqlQuery, null);
 
@@ -270,7 +286,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
             String desc = curs.getString(1);
             int buyerId = curs.getInt(2);
             double cost = curs.getDouble(3);
-            Date date = new Date(curs.getLong(4) * 1000);
 
             purchases.add(new Purchase(id, desc, buyerId, cost));
         }
