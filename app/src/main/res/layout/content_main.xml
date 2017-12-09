@@ -43,15 +43,17 @@
         <TableRow
             android:id="@+id/row_events"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp">
 
-            <TableLayout
-                android:id="@+id/table_events"
+            <ScrollView
+                android:id="@+id/event_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-            </TableLayout>
+            </ScrollView>
+
         </TableRow>
 
     </TableLayout>
