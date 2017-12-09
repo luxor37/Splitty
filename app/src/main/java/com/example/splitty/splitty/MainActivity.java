@@ -73,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
         try {
             ArrayList<Event> events = db.selectAllEvents();
 
-            Log.d("mainarraysize", events.size()+"");
-
-
             TableLayout event_table = new TableLayout(this);
 
             for (final Event e : events) {

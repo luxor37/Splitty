@@ -197,7 +197,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
             events.add(new Event(id, name));
         }
         curs.close();
-        Log.d("arraysize", events.size()+"");
         return events;
     }
 

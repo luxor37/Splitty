@@ -78,17 +78,15 @@ public class AddFriendActivity extends AppCompatActivity {
         for (int i = 0; i < contacts.size(); i++) {
             final TableRow row = new TableRow(this);
             TextView info = new TextView(this);
-            Button addBtn = new Button(this);
-            info.setText(contacts.get(i).getId()+""+contacts.get(i).getFirstName() + " "
+            info.setText(contacts.get(i).getFirstName() + " "
                     + contacts.get(i).getLastName() + " " + contacts.get(i).getEmail());
             final int j = i;
-            addBtn.setOnClickListener(new View.OnClickListener() {
+            info.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     addFriend(contacts.get(j).getId());
                 }
             });
             row.addView(info);
-            row.addView(addBtn);
             resultView.addView(row, i);
         }
     }

@@ -47,23 +47,14 @@ public class AddEventActivity extends AppCompatActivity {
             int newid = 0;
             ArrayList<Event> eventlist = db.selectAllEvents();
             try {
-
-                Log.d("PUUUUUUUUULLLLLLL_OUT1", eventlist.size() + "");
-                Log.d("PUUUUUUUUULLLLLLL_ID1", newid + "");
                 if (eventlist.size()>=1) {
                     newid = eventlist.size() + 1;
-                    Log.d("PUUUUUUUUULLLLLLL_OUT2", eventlist.size() + "");
-                    Log.d("PUUUUUUUUULLLLLLL_ID2", newid + "");
                 } else {
                     newid = 1;
-                    Log.d("PUUUUUUUUULLLLLLL_OUT3", eventlist.size() + "");
-                    Log.d("PUUUUUUUUULLLLLLL_ID3", newid + "");
                 }
             } catch (Exception e) {
                 newid = 1;
             }
-            Log.d("PUUUUUUUUULLLLLLL_OUT4", eventlist.size() + "");
-            Log.d("PUUUUUUUUULLLLLLL_ID4", newid + "");
             Event event = new Event();
             event.setId(newid);
             event.setName(name);
