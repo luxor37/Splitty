@@ -75,8 +75,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void insertEvent(Event e) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sqlInsert = "insert into EVENT values(null, '" + e.getName() +
-                "', " + e.getContactGroupId() + ", " + e.getPurchaseGroupId() + ", '" +
-                e.getStartDate() + "', '" + e.getEndDate() + "')";
+                "', " + e.getContactGroupId() + ", " + e.getPurchaseGroupId()  + "')";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -180,10 +179,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 String name = curs.getString(1);
                 int contactGroupId = curs.getInt(2);
                 int purchaseGroupId = curs.getInt(3);
-                Date startDate = new Date(curs.getLong(4) * 1000);
-                Date endDate = new Date(curs.getLong(5) * 1000);
 
-                e = new Event(id, name, contactGroupId, purchaseGroupId, startDate, endDate);
+                e = new Event(id, name, contactGroupId, purchaseGroupId);
             }
             curs.close();
         } catch (Exception ex) {
@@ -206,10 +203,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
             String name = curs.getString(1);
             int contactGroupId = curs.getInt(2);
             int purchaseGroupId = curs.getInt(3);
-            Date startDate = new Date(curs.getLong(4) * 1000);
-            Date endDate = new Date(curs.getLong(5) * 1000);
 
-            events.add(new Event(id, name, contactGroupId, purchaseGroupId, startDate, endDate));
+            events.add(new Event(id, name, contactGroupId, purchaseGroupId));
         }
         curs.close();
         return events;

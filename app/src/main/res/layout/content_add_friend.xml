@@ -30,8 +30,8 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/title"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/search" />
+        android:hint="@string/search"
+        android:inputType="textPersonName" />
 
     <ScrollView
         android:id="@+id/scrollView"
