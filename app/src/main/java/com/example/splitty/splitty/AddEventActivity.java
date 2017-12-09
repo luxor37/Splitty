@@ -52,6 +52,9 @@ public class AddEventActivity extends AppCompatActivity implements Serializable 
                 if (eventlist == null) {
                     newid = 1;
                 }
+                else{
+                    newid = eventlist.size()+1;
+                }
             } catch (Exception e){
                 newid = 1;
             }
