@@ -163,7 +163,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
             contacts.add(new Contact(id, firstName, lastName, email));
         }
-
+        curs.close();
         return contacts;
     }
 
@@ -211,7 +211,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
             events.add(new Event(id, name, contactGroupId, purchaseGroupId, startDate, endDate));
         }
-
+        curs.close();
         return events;
     }
 
