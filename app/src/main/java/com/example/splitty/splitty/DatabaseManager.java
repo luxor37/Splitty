@@ -213,7 +213,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 String desc = curs.getString(1);
                 int buyerId = curs.getInt(2);
                 double cost = curs.getDouble(3);
-                Date date = new Date(curs.getLong(4) * 1000);
 
                 p = new Purchase(id, desc, buyerId, cost);
             }

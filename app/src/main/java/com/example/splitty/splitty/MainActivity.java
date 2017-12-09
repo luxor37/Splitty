@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void viewEvent(int id){
-        eventIntent.putExtra("pute", id);
+        eventIntent.putExtra("eventId", id);
         startActivity(eventIntent);
     }
 }

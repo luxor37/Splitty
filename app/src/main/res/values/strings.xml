@@ -19,4 +19,5 @@
     <string name="placeholder_desc">Description</string>
     <string name="placeholder_firstname">First Name</string>
     <string name="placeholder_cost">Cost</string>
+    <string name="title_activity_add_purchase">AddPurchaseActivity</string>
 </resources>

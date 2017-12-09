@@ -24,12 +24,12 @@
             android:label="@string/title_activity_add_event"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AddFriendActivity"
-            android:label="@string/title_activity_add_friend"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ListPurchaseActivity"
             android:label="@string/title_activity_list_purchase"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddPurchaseActivity"
+            android:label="@string/title_activity_add_purchase"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

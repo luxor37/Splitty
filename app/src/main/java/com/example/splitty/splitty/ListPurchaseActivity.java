@@ -1,5 +1,6 @@
 package com.example.splitty.splitty;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ public class ListPurchaseActivity extends AppCompatActivity {
     private DatabaseManager dbManager;
     private double owe = 0D;
     private double receive = 0D;
+    private int eventId = getIntent().getExtras().getInt("eventId");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +36,6 @@ public class ListPurchaseActivity extends AppCompatActivity {
             }
         });
 
-        int pute = getIntent().getExtras().getInt("pute");
-
         dbManager = new DatabaseManager(this);
 
         GridLayout friendsList = (GridLayout) findViewById(R.id.friendsList);
@@ -50,7 +50,7 @@ public class ListPurchaseActivity extends AppCompatActivity {
         friendsList.addView(tvIdHeader);
         friendsList.addView(tvFirstNameHeader);
         friendsList.addView(tvLastNameHeader);
-        for( Purchase purchase : dbManager.selectPurchasesByEvent(pute)) {
+        for( Purchase purchase : dbManager.selectPurchasesByEvent(eventId)) {
             Contact buyer = dbManager.selectContactById(purchase.getBuyerId());
                 TextView tvDesc = new TextView(ListPurchaseActivity.this);
                 tvDesc.setText(purchase.getDesc());
@@ -63,6 +63,13 @@ public class ListPurchaseActivity extends AppCompatActivity {
                 friendsList.addView(tvCost);
         }
 
+    }
+
+    public void addPurchase(View v){
+        Intent i = new Intent(this, AddPurchaseActivity.class);
+        i.putExtra("eventId", eventId);
+
+        startActivity(new Intent(this, AddPurchaseActivity.class));
     }
 
 }

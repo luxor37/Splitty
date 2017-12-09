@@ -30,7 +30,7 @@ public class AddEventActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mainIntent = new Intent(this, MainActivity.class);
-        friendIntent = new Intent(this, AddFriendActivity.class);
+        //friendIntent = new Intent(this, AddFriendActivity.class);
         resultView = findViewById(R.id.resultView);
         db = new DatabaseManager(this);
 
@@ -103,10 +103,10 @@ public class AddEventActivity extends AppCompatActivity {
         populateScroll();
     }
 
-    public void addFriend(View v) {
+    /*public void addFriend(View v) {
         if (friendList != null) {
             friendIntent.putIntegerArrayListExtra("friendList", friendList);
         }
         startActivity(friendIntent);
-    }
+    }*/
 }
