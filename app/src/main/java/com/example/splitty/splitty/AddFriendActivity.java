@@ -38,15 +38,18 @@ public class AddFriendActivity extends AppCompatActivity {
 
         //Hard coded contacts=========================
         db.reload();
-        Contact temp =
-                new Contact(1, "Remi", "Martel", "remi@martel.com");
+        Contact temp = new Contact();
+        temp.setEmail("shitstain.bepis");
+        temp.setFirstName("coullon");
+        temp.setLastName("bagin");
         db.insertContact(temp);
-        Contact temp1 =
-                new Contact(2, "William", "Fournier", "william@fournier.com");
+
+        Contact temp1 = new Contact();
+        temp1.setEmail("somethingNew");
+        temp1.setFirstName("manger");
+        temp1.setLastName("delamarde");
         db.insertContact(temp1);
-        Contact temp2 =
-                new Contact(3, "Tristan", "Gosselin", "tristan@gosselin.com");
-        db.insertContact(temp2);
+
         //Hard coded contacts=========================
 
         final EditText myTextBox = findViewById(R.id.search);

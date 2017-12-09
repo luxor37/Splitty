@@ -50,11 +50,8 @@ public class AddEventActivity extends AppCompatActivity implements Serializable 
 
     public void populateScroll() {
         if (friendList != null) {
-
             for (int i = 0; i < friendList.size(); i++) {
-                Log.d("DDDEEEBBBUUUGGG", friendList.get(0)+"");
-                final Contact friend = db.selectContactById(friendList.get(i));Log.d(
-                        "DDDEEEBBBUUUGGG", friend.getFirstName());
+                final Contact friend = db.selectContactById(friendList.get(i));
                 TableRow row = new TableRow(this);
                 TextView info = new TextView(this);
                 Button rmvBtn = new Button(this);

@@ -25,7 +25,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createContact = "create table CONTACT (C_ID integer primary key, " +
+        String createContact = "create table CONTACT (C_ID integer primary key autoincrement, " +
                 "C_FIRST text, C_LAST text, C_EMAIL text)";
         String createEvent = "create table EVENT (E_ID integer primary key autoincrement, " +
                 "E_NAME text, C_GROUP_ID number, P_GROUP_ID number, E_START_DATE date, " +
@@ -66,8 +66,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void insertContact(Contact c) {
         Log.d("DDDEEEBBBUUUGGG", c.getId()+"");
         SQLiteDatabase db = this.getWritableDatabase();
-        String sqlInsert = "insert into CONTACT values(" + c.getId() +
-                ", '" + c.getFirstName() + "', '" + c.getLastName() + "', '" + c.getEmail() + "')";
+        String sqlInsert = "insert into CONTACT values (null, '" + c.getFirstName() + "', '" + c.getLastName() + "', '" + c.getEmail() + "')";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -112,27 +111,23 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public Contact selectContactById(int contactId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Contact c = null;
+        Contact contact = new Contact();
 
-        try {
             String sqlQuery = "select * from CONTACT where C_ID = " + contactId;
-
             Cursor curs = db.rawQuery(sqlQuery, null);
 
-            if (curs.moveToFirst()) {
-                int id = curs.getInt(0);
-                String firstName = curs.getString(1);
-                String lastName = curs.getString(2);
-                String email = curs.getString(3);
-
-                c = new Contact(id, firstName, lastName, email);
+            while (curs.moveToNext()) {
+                contact = new Contact();
+                contact.setId(curs.getInt(0));
+                contact.setFirstName(curs.getString(1));
+                contact.setLastName(curs.getString(2));
+                contact.setEmail(curs.getString(3));
+                Log.d("DDDEEEBBBUUUGGG111222333==", "PPPPENNNISSSSS");
             }
+            Log.d("DDDEEEBBBUUUGGGcount", curs.getCount()+"PPPPENNNISSSSS");
             curs.close();
-        } catch (Exception ex) {
-            Log.wtf("selectContactById error", ex.getMessage());
-        }
 
-        return c;
+        return contact;
     }
 
     public ArrayList<Contact> selectContactByName(String c_first) {
@@ -141,11 +136,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
         Cursor curs = db.rawQuery("SELECT * FROM CONTACT WHERE C_FIRST like '%" +
                 c_first + "%'", null);
         while (curs.moveToNext()) {
-            Contact candy = new Contact();
-            candy.setFirstName(curs.getString(1));
-            candy.setLastName(curs.getString(2));
-            candy.setEmail(curs.getString(3));
-            query.add(candy);
+            Contact contact = new Contact();
+            contact.setId(curs.getInt(0));
+            contact.setFirstName(curs.getString(1));
+            contact.setLastName(curs.getString(2));
+            contact.setEmail(curs.getString(3));
+            query.add(contact);
         }
         curs.close();
         return query;

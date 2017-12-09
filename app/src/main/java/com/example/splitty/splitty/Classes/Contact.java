@@ -2,7 +2,7 @@ package com.example.splitty.splitty.Classes;
 
 import java.io.Serializable;
 
-public class Contact implements Serializable{
+public class Contact implements Serializable {
 
     private int id;
     private String firstName;
@@ -21,6 +21,10 @@ public class Contact implements Serializable{
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
