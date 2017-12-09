@@ -56,11 +56,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void reload() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("drop table if exists CONTACT");
-        db.execSQL("drop table if exists EVENT");
-        db.execSQL("drop table if exists PURCHASE");
-        db.execSQL("drop table if exists CONTACT_GROUP");
-        db.execSQL("drop table if exists PURCHASE_GROUP");
-        onCreate(db);
+        String createContact = "create table CONTACT (C_ID integer primary key autoincrement, " +
+                "C_FIRST text, C_LAST text, C_EMAIL text)";
+        db.execSQL(createContact);
     }
 
     public void insertContact(Contact c) {
@@ -199,6 +197,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
             events.add(new Event(id, name));
         }
         curs.close();
+        Log.d("arraysize", events.size()+"");
         return events;
     }
 
