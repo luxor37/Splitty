@@ -18,7 +18,7 @@ public class ListPurchaseActivity extends AppCompatActivity {
     private DatabaseManager dbManager;
     private double owe = 0D;
     private double receive = 0D;
-    private int eventId = getIntent().getExtras().getInt("eventId");
+    private int eventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class ListPurchaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_purchase);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        eventId = getIntent().getExtras().getInt("eventId");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

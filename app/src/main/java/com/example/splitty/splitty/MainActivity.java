@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void viewEvent(int id){
+        Log.wtf("noob", String.valueOf(id));
         eventIntent.putExtra("eventId", id);
         startActivity(eventIntent);
     }

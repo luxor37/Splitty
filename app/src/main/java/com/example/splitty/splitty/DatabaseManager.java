@@ -160,6 +160,24 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return contacts;
     }
 
+    public ArrayList<String> selectAllContactNames() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ArrayList<String> contacts = new ArrayList<>();
+        String sqlQuery = "select * from CONTACT";
+
+        Cursor curs = db.rawQuery(sqlQuery, null);
+
+        while (curs.moveToNext()) {
+            String firstName = curs.getString(1);
+            String lastName = curs.getString(2);
+
+            contacts.add(firstName + " " + lastName);
+        }
+        curs.close();
+        return contacts;
+    }
+
     public Event selectEventById(int eventId) {
         SQLiteDatabase db = this.getWritableDatabase();
         Event e = null;
