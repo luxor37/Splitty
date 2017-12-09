@@ -15,4 +15,8 @@
     <string name="youowe">You owe </string>
     <string name="youreceive">You receive </string>
     <string name="delete">Delete</string>
+
+    <string name="placeholder_desc">Description</string>
+    <string name="placeholder_firstname">First Name</string>
+    <string name="placeholder_cost">Cost</string>
 </resources>

@@ -45,22 +45,19 @@
         android:layout_alignEnd="@+id/receiveAmount" />
 
     <ScrollView
-        android:layout_below="@+id/receiveLabel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/receiveLabel">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <GridLayout
+            android:id="@+id/friendsList"
+            android:columnCount="3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:useDefaultMargins="true">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="?android:attr/listDivider"/>
-
-        </LinearLayout>
+        </GridLayout>
     </ScrollView>
 
 </RelativeLayout>

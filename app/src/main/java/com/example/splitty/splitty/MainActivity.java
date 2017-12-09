@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
             TableLayout event_table = new TableLayout(this);
 
-            for (Event e : events) {
+            for (final Event e : events) {
                 TableRow tr = new TableRow(this);
                 Button btn = new Button(this);
                 tr.setGravity(Gravity.CENTER);
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                 btn.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        viewEvent();
+                        viewEvent(e.getId());
                     }
                 });
                 btn.setText("View Details");
@@ -109,7 +109,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(addEventIntent);
     }
 
-    public  void viewEvent(){
+    public  void viewEvent(int id){
+        eventIntent.putExtra("pute", id);
         startActivity(eventIntent);
     }
 }

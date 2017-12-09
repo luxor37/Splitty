@@ -227,6 +227,21 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return p;
     }
 
+    public ArrayList<Purchase> selectPurchasesByEvent(int eventId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<Purchase> purchases = new ArrayList<>();
+        String sqlQuery = "select p.P_DESC, p.P_BUYER_ID, p.P_COST from PURCHASE p, PURCHASE_GROUP p_g where p_g.P_ID = p.P_ID AND p_g.E_ID = " + eventId;
+        Cursor curs = db.rawQuery(sqlQuery, null);
+        while (curs.moveToNext()) {
+            int id = curs.getInt(0);
+            String desc = curs.getString(1);
+            int buyerId = curs.getInt(2);
+            double cost = curs.getDouble(3);
+            purchases.add(new Purchase(id, desc, buyerId, cost));
+        }
+        return purchases;
+    }
+
     public ArrayList<Purchase> selectAllPurchases() {
         SQLiteDatabase db = this.getWritableDatabase();
 
