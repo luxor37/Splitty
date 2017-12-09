@@ -106,7 +106,6 @@ public class AddFriendActivity extends AppCompatActivity {
             friendList.add(id);
         }
         eventIntent.putIntegerArrayListExtra("friendList", friendList);
-        Log.d("DDDEEEBBBUUUGGG", friendList.get(0)+"");
         startActivity(eventIntent);
     }
 }

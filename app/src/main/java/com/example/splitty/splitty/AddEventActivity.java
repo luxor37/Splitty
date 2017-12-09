@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,14 +12,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.splitty.splitty.Classes.Contact;
-import com.example.splitty.splitty.Classes.ContactGroup;
-import com.example.splitty.splitty.Classes.Event;
+import com.example.splitty.splitty.Classes.*;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AddEventActivity extends AppCompatActivity implements Serializable {
+public class AddEventActivity extends AppCompatActivity {
     private Intent mainIntent;
     private Intent friendIntent;
     private ArrayList<Integer> friendList;
@@ -43,26 +41,34 @@ public class AddEventActivity extends AppCompatActivity implements Serializable 
     }
 
     public void createEvent(View v) {
-        String name = ((EditText)findViewById(R.id.eventName)).getText().toString();
+        String name = ((EditText) findViewById(R.id.eventName)).getText().toString();
 
         if (friendList != null && !(name.equals(""))) {
             int newid = 0;
+            ArrayList<Event> eventlist = db.selectAllEvents();
             try {
-                ArrayList<Event> eventlist = db.selectAllEvents();
-                if (eventlist == null) {
+
+                Log.d("PUUUUUUUUULLLLLLL_OUT1", eventlist.size() + "");
+                Log.d("PUUUUUUUUULLLLLLL_ID1", newid + "");
+                if (eventlist.size()>=1) {
+                    newid = eventlist.size() + 1;
+                    Log.d("PUUUUUUUUULLLLLLL_OUT2", eventlist.size() + "");
+                    Log.d("PUUUUUUUUULLLLLLL_ID2", newid + "");
+                } else {
                     newid = 1;
+                    Log.d("PUUUUUUUUULLLLLLL_OUT3", eventlist.size() + "");
+                    Log.d("PUUUUUUUUULLLLLLL_ID3", newid + "");
                 }
-                else{
-                    newid = eventlist.size()+1;
-                }
-            } catch (Exception e){
+            } catch (Exception e) {
                 newid = 1;
             }
+            Log.d("PUUUUUUUUULLLLLLL_OUT4", eventlist.size() + "");
+            Log.d("PUUUUUUUUULLLLLLL_ID4", newid + "");
             Event event = new Event();
             event.setId(newid);
             event.setName(name);
             db.insertEvent(event);
-            for (int i = 0;i<friendList.size();i++){
+            for (int i = 0; i < friendList.size(); i++) {
                 ContactGroup group = new ContactGroup();
                 group.setContactId(friendList.get(i));
                 group.setEventId(newid);
