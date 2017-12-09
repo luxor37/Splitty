@@ -70,7 +70,7 @@ public class ListPurchaseActivity extends AppCompatActivity {
         Intent i = new Intent(this, AddPurchaseActivity.class);
         i.putExtra("eventId", eventId);
 
-        startActivity(new Intent(this, AddPurchaseActivity.class));
+        startActivity(i);
     }
 
 }
