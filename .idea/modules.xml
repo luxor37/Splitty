@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Splitty.iml" filepath="$PROJECT_DIR$/Splitty.iml" />
+      <module fileurl="file://C:\Users\luxor\Documents\Splity\Splitty.iml" filepath="C:\Users\luxor\Documents\Splity\Splitty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Splity.iml" filepath="$PROJECT_DIR$/Splity.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -52,8 +52,9 @@ public class AddEventActivity extends AppCompatActivity implements Serializable 
         if (friendList != null) {
 
             for (int i = 0; i < friendList.size(); i++) {
-                Log.d("DDDEEEBBBUUUGGG", friendList.size()+"");
-                final Contact friend = db.selectContactById(friendList.get(i));Log.d("DDDEEEBBBUUUGGG", friend.getFirstName());
+                Log.d("DDDEEEBBBUUUGGG", friendList.get(0)+"");
+                final Contact friend = db.selectContactById(friendList.get(i));Log.d(
+                        "DDDEEEBBBUUUGGG", friend.getFirstName());
                 TableRow row = new TableRow(this);
                 TextView info = new TextView(this);
                 Button rmvBtn = new Button(this);

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ public class AddFriendActivity extends AppCompatActivity {
         eventIntent = new Intent(this, AddEventActivity.class);
 
         //Hard coded contacts=========================
+        db.reload();
         Contact temp =
                 new Contact(1, "Remi", "Martel", "remi@martel.com");
         db.insertContact(temp);
@@ -74,8 +76,8 @@ public class AddFriendActivity extends AppCompatActivity {
             final TableRow row = new TableRow(this);
             TextView info = new TextView(this);
             Button addBtn = new Button(this);
-            info.setText(contacts.get(i).getFirstName() + " " + contacts.get(i).getLastName() + " " +
-                    contacts.get(i).getEmail());
+            info.setText(contacts.get(i).getId()+""+contacts.get(i).getFirstName() + " "
+                    + contacts.get(i).getLastName() + " " + contacts.get(i).getEmail());
             final int j = i;
             addBtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -101,6 +103,7 @@ public class AddFriendActivity extends AppCompatActivity {
             friendList.add(id);
         }
         eventIntent.putIntegerArrayListExtra("friendList", friendList);
+        Log.d("DDDEEEBBBUUUGGG", friendList.get(0)+"");
         startActivity(eventIntent);
     }
 }
