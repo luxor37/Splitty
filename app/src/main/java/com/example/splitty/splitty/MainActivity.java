@@ -68,12 +68,6 @@ public class MainActivity extends AppCompatActivity {
     public void populate(){
         ArrayList<Event> events = db.selectAllEvents();
 
-        for(int i = 0; i < 50; i++){
-            Event event = new Event();
-            event.setName("Test" +i);
-            events.add(event);
-        }
-
         TableLayout event_table = new TableLayout(this);
 
         for(Event e : events){

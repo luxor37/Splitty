@@ -28,10 +28,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String createContact = "create table CONTACT (C_ID integer primary key autoincrement, " +
                 "C_FIRST text, C_LAST text, C_EMAIL text)";
         String createEvent = "create table EVENT (E_ID integer primary key autoincrement, " +
-                "E_NAME text, C_GROUP_ID number, P_GROUP_ID number, E_START_DATE date, " +
-                "E_END_DATE date)";
+                "E_NAME text, C_GROUP_ID number, P_GROUP_ID number)";
         String createPurchase = "create table PURCHASE (P_ID integer primary key autoincrement, " +
-                "P_DESC text, P_BUYER_ID number, P_COST number, P_DATE date)";
+                "P_DESC text, P_BUYER_ID number, P_COST number)";
         String createContactGroup = "create table CONTACT_GROUP (C_GROUP_ID number, C_ID number," +
                 " E_ID)";
         String createPurchaseGroup = "create table PURCHASE_GROUP (P_GROUP_ID number," +
@@ -84,7 +83,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void insertPurchase(Purchase p) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sqlInsert = "insert into PURCHASE values(null, '" + p.getDesc() + "', " +
-                p.getBuyerId() + ", " + p.getCost() + ", '" + p.getDate() + "')";
+                p.getBuyerId() + ", " + p.getCost() + ")";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -225,7 +224,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 double cost = curs.getDouble(3);
                 Date date = new Date(curs.getLong(4) * 1000);
 
-                p = new Purchase(id, desc, buyerId, cost, date);
+                p = new Purchase(id, desc, buyerId, cost);
             }
             curs.close();
         } catch (Exception ex) {
@@ -235,11 +234,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return p;
     }
 
-    public ArrayList<Purchase> selectAllPurchases() {
+    public ArrayList<Purchase> selectPurchasesByEvent(int eventId){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ArrayList<Purchase> purchases = new ArrayList<>();
-        String sqlQuery = "select * from EVENT";
+        String sqlQuery = "select p.P_DESC, p.P_BUYER_ID, p.P_COST from PURCHASE p, PURCHASE_GROUP p_g where p_g.P_ID = p.P_ID AND p_g.E_ID = " +eventId;
 
         Cursor curs = db.rawQuery(sqlQuery, null);
 
@@ -248,9 +247,28 @@ public class DatabaseManager extends SQLiteOpenHelper {
             String desc = curs.getString(1);
             int buyerId = curs.getInt(2);
             double cost = curs.getDouble(3);
-            Date date = new Date(curs.getLong(4) * 1000);
 
-            purchases.add(new Purchase(id, desc, buyerId, cost, date));
+            purchases.add(new Purchase(id, desc, buyerId, cost));
+        }
+
+        return purchases;
+    }
+
+    public ArrayList<Purchase> selectAllPurchases() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ArrayList<Purchase> purchases = new ArrayList<>();
+        String sqlQuery = "select * from PURCHASE";
+
+        Cursor curs = db.rawQuery(sqlQuery, null);
+
+        while (curs.moveToNext()) {
+            int id = curs.getInt(0);
+            String desc = curs.getString(1);
+            int buyerId = curs.getInt(2);
+            double cost = curs.getDouble(3);
+
+            purchases.add(new Purchase(id, desc, buyerId, cost));
         }
 
         return purchases;
@@ -331,8 +349,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         cv.put("E_NAME", name);
         cv.put("C_GROUP_ID", contactGroupId);
         cv.put("P_GROUP_ID", purchaseGroupId);
-        cv.put("E_START_DATE", String.valueOf(startDate));
-        cv.put("E_END_DATE", String.valueOf(endDate));
 
         db.update("EVENT", cv, "E_ID = " + eventId, null);
     }
@@ -350,7 +366,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         cv.put("P_DESC", desc);
         cv.put("P_BUYER_ID", buyerId);
         cv.put("P_COST", cost);
-        cv.put("P_DATE", String.valueOf(date));
 
         db.update("PURCHASE", cv, "P_ID = " + purchaseId, null);
     }

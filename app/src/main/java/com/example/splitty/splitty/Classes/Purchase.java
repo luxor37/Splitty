@@ -8,17 +8,15 @@ public class Purchase {
     private String desc;
     private int buyerId;
     private double cost;
-    private Date date;
 
     public Purchase() {
     }
 
-    public Purchase(int id, String desc, int buyerId, double cost, Date date) {
+    public Purchase(int id, String desc, int buyerId, double cost) {
         this.id = id;
         this.desc = desc;
         this.buyerId = buyerId;
         this.cost = cost;
-        this.date = date;
     }
 
     public int getId() {
@@ -51,13 +49,5 @@ public class Purchase {
 
     public void setCost(double cost) {
         this.cost = cost;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 }
