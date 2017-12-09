@@ -3,11 +3,13 @@ package com.example.splitty.splitty;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -21,6 +23,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
     private Intent addEventIntent;
     private DatabaseManager db;
+    private Intent eventIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         db = new DatabaseManager(this);
 
         addEventIntent = new Intent(this, AddEventActivity.class);
+        eventIntent = new Intent(this, ListPurchaseActivity.class);
         populate();
     }
 
@@ -66,28 +70,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void populate(){
-        ArrayList<Event> events = db.selectAllEvents();
+        try {
+            ArrayList<Event> events = db.selectAllEvents();
 
-        TableLayout event_table = new TableLayout(this);
+            TableLayout event_table = new TableLayout(this);
 
-        for(Event e : events){
-            TableRow tr = new TableRow(this);
-            tr.setGravity(Gravity.CENTER);
+            for (Event e : events) {
+                TableRow tr = new TableRow(this);
+                Button btn = new Button(this);
+                tr.setGravity(Gravity.CENTER);
 
-            TextView tv = new TextView(this);
-            String text = e.getName();
-            tv.setText(text);
-            tv.setTextSize(40);
+                TextView tv = new TextView(this);
+                tv.setText(e.getName());
+                tv.setTextSize(40);
 
-            tr.addView(tv);
-            event_table.addView(tr);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        viewEvent();
+                    }
+                });
+                btn.setText("View Details");
+
+                tr.addView(tv);
+                tr.addView(btn);
+                event_table.addView(tr);
+            }
+
+
+
+            ScrollView event_scroll = findViewById(R.id.event_scroll);
+            event_scroll.addView(event_table);
+        } catch (Exception e){
+            Log.d("ERROR", "NO EVENTS YET");
         }
-
-        ScrollView event_scroll = findViewById(R.id.event_scroll);
-        event_scroll.addView(event_table);
     }
 
     public void addEvent(View v){
         startActivity(addEventIntent);
+    }
+
+    public  void viewEvent(){
+        startActivity(eventIntent);
     }
 }

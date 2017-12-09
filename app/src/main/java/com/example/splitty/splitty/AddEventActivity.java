@@ -58,10 +58,12 @@ public class AddEventActivity extends AppCompatActivity implements Serializable 
             Event event = new Event();
             event.setId(newid);
             event.setName(name);
+            db.insertEvent(event);
             for (int i = 0;i<friendList.size();i++){
                 ContactGroup group = new ContactGroup();
                 group.setContactId(friendList.get(i));
                 group.setEventId(newid);
+                db.insertContactGroup(group);
             }
 
             startActivity(mainIntent);
