@@ -82,7 +82,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void insertPurchase(Purchase p) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sqlInsert = "insert into PURCHASE values(null, '" + p.getDesc() + "', " +
-                p.getBuyerId() + ", " + p.getCost() + ", '" + p.getDate() + "')";
+                p.getBuyerId() + ", " + p.getCost() + ")";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -217,7 +217,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 double cost = curs.getDouble(3);
                 Date date = new Date(curs.getLong(4) * 1000);
 
-                p = new Purchase(id, desc, buyerId, cost, date);
+                p = new Purchase(id, desc, buyerId, cost);
             }
             curs.close();
         } catch (Exception ex) {
@@ -242,7 +242,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
             double cost = curs.getDouble(3);
             Date date = new Date(curs.getLong(4) * 1000);
 
-            purchases.add(new Purchase(id, desc, buyerId, cost, date));
+            purchases.add(new Purchase(id, desc, buyerId, cost));
         }
 
         return purchases;
