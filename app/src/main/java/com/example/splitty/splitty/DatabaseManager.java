@@ -71,7 +71,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void insertContactGroup(ContactGroup cg) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sqlInsert = "insert into CONTACT_GROUP values(null, " + cg.getId() + ", " + cg.getContactId() + ", " + cg.getEventId() + ")";
+        String sqlInsert = "insert into CONTACT_GROUP values(null, " + cg.getContactId() + ", " + cg.getEventId() + ")";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -79,7 +79,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void insertPurchaseGroup(PurchaseGroup pg) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sqlInsert = "insert into PURCHASE_GROUP values(null, " + pg.getId() + ", " + pg.getPurchaseId() + ", " + pg.getEventId() + ")";
+        String sqlInsert = "insert into PURCHASE_GROUP values(null, " + pg.getPurchaseId() + ", " + pg.getEventId() + ")";
 
         db.execSQL(sqlInsert);
         db.close();
