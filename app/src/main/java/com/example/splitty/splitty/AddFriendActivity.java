@@ -37,18 +37,25 @@ public class AddFriendActivity extends AppCompatActivity {
         eventIntent = new Intent(this, AddEventActivity.class);
 
         //Hard coded contacts=========================
-        db.reload();
-        Contact temp = new Contact();
-        temp.setEmail("shitstain.bepis");
-        temp.setFirstName("coullon");
-        temp.setLastName("bagin");
-        db.insertContact(temp);
 
-        Contact temp1 = new Contact();
-        temp1.setEmail("somethingNew");
-        temp1.setFirstName("manger");
-        temp1.setLastName("delamarde");
-        db.insertContact(temp1);
+        db.reload();
+        Contact c1 = new Contact();
+        c1.setEmail("william@fournier.com");
+        c1.setFirstName("William");
+        c1.setLastName("Fournier");
+        db.insertContact(c1);
+
+        Contact c2 = new Contact();
+        c2.setEmail("remi@martel.com");
+        c2.setFirstName("Remi");
+        c2.setLastName("Martel");
+        db.insertContact(c2);
+
+        Contact c3 = new Contact();
+        c3.setEmail("tristan@gosselin.com");
+        c3.setFirstName("Tristan");
+        c3.setLastName("Gosselin");
+        db.insertContact(c3);
 
         //Hard coded contacts=========================
 

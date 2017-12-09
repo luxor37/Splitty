@@ -57,12 +57,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.events:
-                // code
-                return true;
-            case R.id.contacts:
-                // code
-                return true;
             default:
                 break;
         }
