@@ -125,6 +125,26 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return query;
     }
 
+    public ArrayList<Contact> selectAllContacts(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ArrayList<Contact> contacts = new ArrayList<>();
+        String sqlQuery = "select * from CONTACT";
+
+        Cursor curs = db.rawQuery(sqlQuery, null);
+
+        while(curs.moveToNext()){
+            int id = curs.getInt(0);
+            String firstName = curs.getString(1);
+            String lastName = curs.getString(2);
+            String email = curs.getString(3);
+
+            contacts.add(new Contact(id, firstName, lastName, email));
+        }
+
+        return contacts;
+    }
+
     public Event selectEventById(int eventId) {
         SQLiteDatabase db = this.getWritableDatabase();
         Event e = null;
@@ -151,6 +171,28 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return e;
     }
 
+    public ArrayList<Event> selectAllEvents(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ArrayList<Event> events = new ArrayList<>();
+        String sqlQuery = "select * from EVENT";
+
+        Cursor curs = db.rawQuery(sqlQuery, null);
+
+        while(curs.moveToNext()){
+            int id = curs.getInt(0);
+            String name = curs.getString(1);
+            int contactGroupId = curs.getInt(2);
+            int purchaseGroupId = curs.getInt(3);
+            Date startDate = new Date(curs.getLong(4) * 1000);
+            Date endDate = new Date(curs.getLong(5) * 1000);
+
+            events.add(new Event(id, name, contactGroupId, purchaseGroupId, startDate, endDate));
+        }
+
+        return events;
+    }
+
     public Purchase selectPurchaseById(int purchaseId) {
         SQLiteDatabase db = this.getWritableDatabase();
         Purchase p = null;
@@ -174,6 +216,27 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
 
         return p;
+    }
+
+    public ArrayList<Purchase> selectAllPurchases(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ArrayList<Purchase> purchases = new ArrayList<>();
+        String sqlQuery = "select * from EVENT";
+
+        Cursor curs = db.rawQuery(sqlQuery, null);
+
+        while(curs.moveToNext()){
+            int id = curs.getInt(0);
+            String desc = curs.getString(1);
+            int buyerId = curs.getInt(2);
+            double cost = curs.getDouble(3);
+            Date date = new Date(curs.getLong(4) * 1000);
+
+            purchases.add(new Purchase(id, desc, buyerId, cost, date));
+        }
+
+        return purchases;
     }
 
     public ContactGroup selectContactGroupById(int contactGroupId) {
